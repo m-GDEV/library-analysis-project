@@ -222,5 +222,5 @@ try:
 
 # In the case the script stops working (broken api, etc) send me an email
 except Exception as e:
-    #  send_mail("musaa.ahmed7@gmail.com", mailPassword, "Library Script has stopped! - " + str(e), repr(e))
+    send_mail("musaa.ahmed7@gmail.com", mailPassword, "Library Script has stopped! - " + str(e), repr(e))
     raise e
