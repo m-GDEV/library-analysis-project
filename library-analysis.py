@@ -147,13 +147,13 @@ def createDataObject(weatherKey) -> DataObject:
     openingTime: str = requests.get("https://api3-ca.libcal.com/api_hours_today.php?iid=3228&format=json").json()['locations'][0]['times']['hours'][0]['from']
     closingTime: str = requests.get("https://api3-ca.libcal.com/api_hours_today.php?iid=3228&format=json").json()['locations'][0]['times']['hours'][0]['to']
 
-    currentActualTemperature: float = float(requests.get("https://api.openweathermap.org/data/2.5/weather?q=Guelph&appid=weatherKey&units=metric").json()['main']['temp'])
-    currentFeelTemperature: float = float(requests.get("https://api.openweathermap.org/data/2.5/weather?q=Guelph&appid=weatherKey&units=metric").json()['main']['feels_like'])
+    currentActualTemperature: float = float(requests.get(f"https://api.openweathermap.org/data/2.5/weather?q=Guelph&appid={weatherKey}&units=metric").json()['main']['temp'])
+    currentFeelTemperature: float = float(requests.get(f"https://api.openweathermap.org/data/2.5/weather?q=Guelph&appid={weatherKey}&units=metric").json()['main']['feels_like'])
 
-    currentSunriseTime: int = int(requests.get("https://api.openweathermap.org/data/2.5/weather?q=Guelph&appid=weatherKey&units=metric").json()['sys']['sunrise'])
-    currentSunsetTime: int = int(requests.get("https://api.openweathermap.org/data/2.5/weather?q=Guelph&appid=weatherKey&units=metric").json()['sys']['sunset'])
+    currentSunriseTime: int = int(requests.get(f"https://api.openweathermap.org/data/2.5/weather?q=Guelph&appid={weatherKey}&units=metric").json()['sys']['sunrise'])
+    currentSunsetTime: int = int(requests.get(f"https://api.openweathermap.org/data/2.5/weather?q=Guelph&appid={weatherKey}&units=metric").json()['sys']['sunset'])
 
-    weatherDescription: str = requests.get("https://api.openweathermap.org/data/2.5/weather?q=Guelph&appid=weatherKey&units=metric").json()['weather'][0]['description']
+    weatherDescription: str = requests.get(f"https://api.openweathermap.org/data/2.5/weather?q=Guelph&appid={weatherKey}&units=metric").json()['weather'][0]['description']
 
     # Create an instance of the DataObject class
     data_instance = DataObject(
