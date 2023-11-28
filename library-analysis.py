@@ -197,10 +197,6 @@ try:
             with open('./library-analysis-data.csv', 'a+', newline='') as file:
                 file_writer = csv.writer(file, delimiter=',')
 
-                # If data file is empty (i.e running on a new computer) create the head title thing csvs need
-                if len(file.readlines()) == 0:
-                    file_writer.writerow(list(vars(data_instance)))
-
                 file_writer.writerow(data_instance.toRow())
                 writes += 1
                 print(f"--- File Written\t{writes} Writes ---")
