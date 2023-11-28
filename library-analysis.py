@@ -136,7 +136,7 @@ Weather Description : {self.weatherDescription}
             self.weatherDescription
         ]
 
-def createDataObject() -> DataObject:
+def createDataObject(weatherKey) -> DataObject:
     # Get data
     occupancy = requests.get("https://display.safespace.io/value/live/e81c82f9").json()
     capacity: int = 3500
@@ -147,13 +147,13 @@ def createDataObject() -> DataObject:
     openingTime: str = requests.get("https://api3-ca.libcal.com/api_hours_today.php?iid=3228&format=json").json()['locations'][0]['times']['hours'][0]['from']
     closingTime: str = requests.get("https://api3-ca.libcal.com/api_hours_today.php?iid=3228&format=json").json()['locations'][0]['times']['hours'][0]['to']
 
-    currentActualTemperature: float = float(requests.get("https://api.openweathermap.org/data/2.5/weather?q=Guelph&appid=582eaef8fa88ead22261302ca8720f2b&units=metric").json()['main']['temp'])
-    currentFeelTemperature: float = float(requests.get("https://api.openweathermap.org/data/2.5/weather?q=Guelph&appid=582eaef8fa88ead22261302ca8720f2b&units=metric").json()['main']['feels_like'])
+    currentActualTemperature: float = float(requests.get("https://api.openweathermap.org/data/2.5/weather?q=Guelph&appid=weatherKey&units=metric").json()['main']['temp'])
+    currentFeelTemperature: float = float(requests.get("https://api.openweathermap.org/data/2.5/weather?q=Guelph&appid=weatherKey&units=metric").json()['main']['feels_like'])
 
-    currentSunriseTime: int = int(requests.get("https://api.openweathermap.org/data/2.5/weather?q=Guelph&appid=582eaef8fa88ead22261302ca8720f2b&units=metric").json()['sys']['sunrise'])
-    currentSunsetTime: int = int(requests.get("https://api.openweathermap.org/data/2.5/weather?q=Guelph&appid=582eaef8fa88ead22261302ca8720f2b&units=metric").json()['sys']['sunset'])
+    currentSunriseTime: int = int(requests.get("https://api.openweathermap.org/data/2.5/weather?q=Guelph&appid=weatherKey&units=metric").json()['sys']['sunrise'])
+    currentSunsetTime: int = int(requests.get("https://api.openweathermap.org/data/2.5/weather?q=Guelph&appid=weatherKey&units=metric").json()['sys']['sunset'])
 
-    weatherDescription: str = requests.get("https://api.openweathermap.org/data/2.5/weather?q=Guelph&appid=582eaef8fa88ead22261302ca8720f2b&units=metric").json()['weather'][0]['description']
+    weatherDescription: str = requests.get("https://api.openweathermap.org/data/2.5/weather?q=Guelph&appid=weatherKey&units=metric").json()['weather'][0]['description']
 
     # Create an instance of the DataObject class
     data_instance = DataObject(
@@ -187,7 +187,7 @@ try:
     while True:
         if requests.get("https://api3-ca.libcal.com/api_hours_today.php?iid=3228&format=json").json()['locations'][0]['times']['status'] == "open":
 
-            data_instance = createDataObject()
+            data_instance = createDataObject(weatherKey)
             # Print data
             print("\n-----------------------------------")
             print(f"--- Iterations: {iterations} | Backups: {backups} ---")
