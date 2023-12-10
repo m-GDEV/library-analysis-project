@@ -185,7 +185,7 @@ mailPassword = credentials['mailPassword']
 
 try:
     while True:
-        if requests.get("https://api3-ca.libcal.com/api_hours_today.php?iid=3228&format=json").json()['locations'][0]['times']['status'] == "open":
+        if requests.get("https://api3-ca.libcal.com/api_hours_today.php?iid=3228&format=json").json()['locations'][0]['times']['currently_open'] == True:
 
             data_instance = createDataObject(weatherKey)
             # Print data
